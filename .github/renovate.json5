@@ -1,0 +1,36 @@
+// Renovate 설정: 의존성의 새 버전이 나오면 업데이트 PR을 보낸다.
+// Actions(`uses:`)는 기본 지원이고, Hugo·CDN 라이브러리는 아래 정규식 규칙으로 찾는다.
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:recommended'],
+  timezone: 'Asia/Seoul',
+  schedule: ['before 9am on monday'],
+  customManagers: [
+    {
+      // .github/workflows/hugo.yml 의 HUGO_VERSION: 0.170.1
+      customType: 'regex',
+      description: 'Hugo 버전',
+      managerFilePatterns: ['/^\\.github/workflows/hugo\\.yml$/'],
+      matchStrings: ['HUGO_VERSION: (?<currentValue>\\d+\\.\\d+\\.\\d+)'],
+      depNameTemplate: 'gohugoio/hugo',
+      datasourceTemplate: 'github-releases',
+      extractVersionTemplate: '^v(?<version>.+)$',
+    },
+    {
+      // layouts/*.html 의 cdn.jsdelivr.net/npm/bulma@1.0.4/...
+      customType: 'regex',
+      description: 'jsDelivr npm CDN',
+      managerFilePatterns: ['/^layouts/.+\\.html$/'],
+      matchStrings: ['cdn\\.jsdelivr\\.net/npm/(?<depName>[^@/"]+)@(?<currentValue>[^/"]+)/'],
+      datasourceTemplate: 'npm',
+    },
+    {
+      // layouts/*.html 의 cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/...
+      customType: 'regex',
+      description: 'jsDelivr GitHub CDN',
+      managerFilePatterns: ['/^layouts/.+\\.html$/'],
+      matchStrings: ['cdn\\.jsdelivr\\.net/gh/(?<depName>[^@/"]+/[^@/"]+)@(?<currentValue>[^/"]+)/'],
+      datasourceTemplate: 'github-tags',
+    },
+  ],
+}

@@ -6,6 +6,7 @@ GitHub Pages 사용자 사이트(https://heeamshin.github.io)의 저장소다. m
 - `docs/` 글은 GitHub 저장소 화면에서도 읽히도록 front matter 없이 쓰고, 제목은 첫 `#` 제목에서 가져온다. 글끼리는 `./books/글.md` 같은 상대 링크, 이미지는 `../../images/…` 상대 경로로 쓴다.
 - 주소는 Jekyll 시절과 같은 `/docs/books/글.html`이다(`uglyURLs`). 바꾸면 이미지 상대 경로와 공유된 링크가 깨진다.
 - 로컬 미리보기: `script/preview` (PR은 `script/preview <PR번호>`). Hugo 버전을 올리면 워크플로의 `HUGO_VERSION`도 맞춘다.
+- Hugo·Bulma·Pretendard·Actions 버전은 Renovate(`.github/renovate.json5`)가 매주 월요일 업데이트 PR로 올린다. 버전 표기(`HUGO_VERSION: x.y.z`, `cdn.jsdelivr.net/npm/이름@버전/`)를 바꾸면 그 정규식도 고친다.
 - 커밋 메시지·PR은 한국어로 짧게 쓴다.
 
 ## 브랜치·PR
