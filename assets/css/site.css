@@ -103,6 +103,29 @@ button.navbar-icon {
   padding: 0.5rem 0.75rem 0.25rem;
 }
 
+/* PC에서는 상단 메뉴를 고정한다 (Bulma의 is-fixed-top-desktop, has-navbar-fixed-top-desktop).
+   Bulma는 고정 메뉴의 펼침 높이를 터치 화면에서만 제한하므로, 데스크톱에서도 글 목록이 길면 메뉴 안에서 스크롤되게 한다.
+   각주·제목 앵커로 이동할 때 고정 메뉴가 대상을 가리지 않도록 메뉴 높이만큼 띄운다. */
+@media screen and (min-width: 1024px) {
+  html {
+    scroll-padding-top: calc(var(--bulma-navbar-height) + 1rem);
+  }
+
+  .navbar.has-burger-menu .navbar-menu {
+    max-height: calc(100vh - var(--bulma-navbar-height));
+    overflow-y: auto;
+  }
+}
+
+/* 맨 위로 버튼: Bulma와 Bootstrap 모두 이 컴포넌트가 없어 Bulma의 button·icon·is-position-fixed로 만들고,
+   위치(오른쪽 아래)만 정한다. 그림자는 Bulma 변수를 써서 다크 모드에도 맞춘다. */
+.go-top {
+  right: 1.5rem;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 20;
+  box-shadow: var(--bulma-shadow);
+}
+
 /* 한글은 어절 단위로 줄바꿈하고, 긴 URL만 쪼갠다 */
 .content {
   word-break: keep-all;
