@@ -3,3 +3,8 @@
 
 # Claude Code worktrees
 .claude/worktrees/
+
+# Hugo 빌드 결과
+public/
+resources/_gen/
+.hugo_build.lock

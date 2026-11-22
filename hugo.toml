@@ -1,0 +1,39 @@
+baseURL = "https://heeamshin.github.io/"
+title = "어느 Technical Writer의 일기장"
+locale = "ko"
+defaultContentLanguage = "ko"
+
+# Jekyll 시절 주소(/docs/books/글.html)를 그대로 쓴다.
+# 이미 공유된 링크가 살아 있고, 글 속 이미지 상대 경로(../../images/…)도 그대로 맞는다.
+uglyURLs = true
+
+disableKinds = ["taxonomy", "term", "rss"]
+enableRobotsTXT = true
+
+[params]
+  description = "좋은 글을 적기 위해서는 많이 적어봐야 된다는 격언을 실천하는 공간"
+
+[permalinks.section]
+  docs = "/docs/"
+
+[markup.goldmark.renderer]
+  unsafe = true # 글 속 <br /> 같은 HTML을 그대로 둔다
+
+[markup.goldmark.renderHooks.link]
+  useEmbedded = "fallback" # [글](./books/글.md) 링크를 실제 페이지 주소로 바꾼다
+
+# docs/와 images/는 GitHub 저장소 화면에서도 글이 그대로 보이도록 제자리에 두고 마운트한다.
+# 루트 README.md, _research/ 등은 마운트하지 않으므로 사이트에 올라가지 않는다.
+[[module.mounts]]
+  source = "content"
+  target = "content"
+[[module.mounts]]
+  source = "docs"
+  target = "content/docs"
+  files = ["! README.md"]
+[[module.mounts]]
+  source = "docs/README.md"
+  target = "content/docs/_index.md" # 폴더의 README.md가 /docs/ 목록 페이지가 된다
+[[module.mounts]]
+  source = "images"
+  target = "static/images"

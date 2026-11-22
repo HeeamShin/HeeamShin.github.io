@@ -1,0 +1,2 @@
+{{- /* uglyURLs라 목록 페이지 주소가 …/index.html로 나온다. Jekyll 시절처럼 / 와 /docs/ 로 맞춘다. */ -}}
+{{- return (strings.TrimSuffix "index.html" .Permalink) -}}
