@@ -1,0 +1,34 @@
+/* Bulma 위에 얹는 사이트 보정: 한글 타이포그래피와 읽기 폭 */
+:root {
+  --site-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --bulma-family-primary: var(--site-font);
+  --bulma-body-family: var(--site-font);
+}
+
+body {
+  font-family: var(--site-font);
+}
+
+/* 한글은 어절 단위로 줄바꿈하고, 긴 URL만 쪼갠다 */
+.content {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.8;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+  text-wrap: balance;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 각주 */
+.content .footnotes {
+  font-size: 0.875em;
+}
