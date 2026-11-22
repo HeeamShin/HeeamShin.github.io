@@ -1,0 +1,8 @@
+{{- /* docs/books/ 아래 독서 노트를 제목순으로 돌려준다: [{title, url}] */ -}}
+{{- $books := slice -}}
+{{- range site.RegularPages -}}
+  {{- if hasPrefix .RelPermalink "/docs/books/" -}}
+    {{- $books = $books | append (dict "title" (partial "title.html" .) "url" .RelPermalink) -}}
+  {{- end -}}
+{{- end -}}
+{{- return (sort $books "title") -}}

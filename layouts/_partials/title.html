@@ -1,0 +1,9 @@
+{{- /* 페이지 제목: front matter title이 있으면 그것, 없으면 본문 첫 제목(# …).
+  docs/ 글은 GitHub 화면을 위해 front matter 없이 쓰므로 첫 제목에서 가져온다. */ -}}
+{{- $t := .Params.title -}}
+{{- if not $t -}}
+  {{- with .Fragments.Headings -}}
+    {{- $t = (index . 0).Title | htmlUnescape -}}
+  {{- end -}}
+{{- end -}}
+{{- return (or $t .Title) -}}

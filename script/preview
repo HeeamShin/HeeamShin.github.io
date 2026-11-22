@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# 로컬에서 사이트를 미리 본다. Ctrl+C로 끝낸다.
+#
+#   script/preview              현재 작업 트리를 띄운다 (저장하면 브라우저가 자동 새로고침)
+#   script/preview 12           PR #12의 최신 커밋을 띄운다 (작업 트리는 건드리지 않음)
+#   script/preview --port 1314  그 밖의 인자는 hugo server에 그대로 넘긴다
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if ! command -v hugo >/dev/null 2>&1; then
+  echo "hugo가 없습니다. 'brew install hugo'로 설치하세요." >&2
+  exit 1
+fi
+
+SRC="$ROOT"
+if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+  PR="$1"; shift
+  TMP="$(mktemp -d)"
+  trap 'rm -rf "$TMP"' EXIT
+  echo "▶ PR #$PR 를 가져옵니다…"
+  git -C "$ROOT" fetch --quiet origin "pull/$PR/head"
+  git -C "$ROOT" log -1 --format='  %h %s' FETCH_HEAD
+  git -C "$ROOT" archive FETCH_HEAD | tar -x -C "$TMP"
+  SRC="$TMP"
+fi
+
+# --renderToMemory: public/ 폴더를 만들지 않는다
+hugo server --source "$SRC" --renderToMemory --disableFastRender "$@"
