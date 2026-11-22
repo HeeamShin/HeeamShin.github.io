@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'ko' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+</head>
+<body>
+  {% assign books = site.pages | where_exp: "p", "p.path contains 'docs/books/'" | sort: "title" %}
+  <nav class="navbar has-burger-menu" aria-label="사이트 메뉴">
+    <div class="container is-max-desktop">
+      <div class="navbar-brand">
+        <a class="navbar-item has-text-weight-bold" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <button type="button" class="navbar-burger" aria-label="글 목록" aria-expanded="false" aria-controls="site-menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="navbar-menu" id="site-menu">
+      <div class="container is-max-desktop">
+        <p class="menu-label">독서 노트</p>
+        {% for book in books %}
+        <a class="navbar-item" href="{{ book.url | relative_url }}">{{ book.title }}</a>
+        {% endfor %}
+        <hr class="navbar-divider">
+        <a class="navbar-item" href="{{ '/docs/' | relative_url }}">전체 글 목록</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container is-max-desktop">
+      <article class="content">
+        {{ content }}
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="content has-text-centered is-small">
+      <p>© {{ site.time | date: '%Y' }} HeeamShin · <a href="https://github.com/HeeamShin/HeeamShin.github.io">GitHub</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // 버거 버튼으로 글 목록 메뉴를 열고 닫는다 (Bulma는 JS를 포함하지 않는다)
+    (function () {
+      var burger = document.querySelector('.navbar-burger');
+      var menu = document.getElementById('site-menu');
+      function setOpen(open) {
+        burger.classList.toggle('is-active', open);
+        menu.classList.toggle('is-active', open);
+        burger.setAttribute('aria-expanded', String(open));
+      }
+      burger.addEventListener('click', function () {
+        setOpen(!menu.classList.contains('is-active'));
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>

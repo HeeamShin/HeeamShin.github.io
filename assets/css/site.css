@@ -1,0 +1,76 @@
+/* Bulma 위에 얹는 사이트 보정: 한글 타이포그래피와 읽기 폭 */
+:root {
+  --site-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --bulma-family-primary: var(--site-font);
+  --bulma-body-family: var(--site-font);
+}
+
+body {
+  font-family: var(--site-font);
+}
+
+/* 상단 메뉴: 화면 폭과 관계없이 제목(홈) + 버거, 버거를 누르면 글 목록이 펼쳐진다.
+   Bulma는 데스크톱(>=1024px)에서 버거를 숨기고 메뉴를 가로로 펼치므로 그 동작을 되돌린다. */
+.navbar.has-burger-menu {
+  display: block;
+}
+
+.navbar.has-burger-menu .navbar-brand {
+  flex-grow: 1;
+}
+
+.navbar.has-burger-menu .navbar-burger {
+  display: flex;
+}
+
+.navbar.has-burger-menu .navbar-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding: 0.5rem 0 1rem;
+  background-color: var(--bulma-scheme-main);
+  box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+}
+
+.navbar.has-burger-menu .navbar-menu.is-active {
+  display: block;
+}
+
+.navbar.has-burger-menu .navbar-menu .container {
+  display: block;
+}
+
+.navbar.has-burger-menu .navbar-menu .navbar-item {
+  display: block;
+}
+
+.navbar.has-burger-menu .menu-label {
+  padding: 0.5rem 0.75rem 0.25rem;
+}
+
+/* 한글은 어절 단위로 줄바꿈하고, 긴 URL만 쪼갠다 */
+.content {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.8;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+  text-wrap: balance;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 각주 */
+.content .footnotes {
+  font-size: 0.875em;
+}

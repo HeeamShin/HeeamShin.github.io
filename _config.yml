@@ -1,0 +1,14 @@
+title: 어느 Technical Writer의 일기장
+description: 좋은 글을 적기 위해서는 많이 적어봐야 된다는 격언을 실천하는 공간
+lang: ko
+url: https://heeamshin.github.io
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# 루트 README.md는 저장소 화면용이다. 사이트 홈은 index.md
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
