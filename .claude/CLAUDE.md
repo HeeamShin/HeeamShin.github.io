@@ -9,6 +9,13 @@ GitHub Pages 사용자 사이트(https://heeamshin.github.io)의 저장소다. m
 - Hugo·Bulma·Pretendard·Actions 버전은 Renovate(`.github/renovate.json5`)가 매주 월요일 업데이트 PR로 올린다. 버전 표기(`HUGO_VERSION: x.y.z`, `cdn.jsdelivr.net/npm/이름@버전/`)를 바꾸면 그 정규식도 고친다.
 - 커밋 메시지·PR은 한국어로 짧게 쓴다.
 
+## 스타일
+스타일을 바꿀 때는 아래 순서로 찾고, 위 단계에서 해결되면 멈춘다. 기억에 기대지 말고 지금 쓰는 버전의 CSS(`cdn.jsdelivr.net`에서 받은 `bulma.css`, `bootstrap.css`)를 grep하거나 공식 문서로 확인한다.
+1. **Bulma**(지금 CDN이 불러오는 버전)에 맞는 컴포넌트·modifier·helper가 있으면 그 클래스를 쓴다.
+2. Bulma에 없으면 **Bootstrap**(최신 안정판)에 있는지 본다. 있으면 Bootstrap을 불러오지 말고, 구조와 동작만 참고해 `assets/css/site.css`에 옮기되 Bulma 변수(`--bulma-*`)와 Bulma 클래스로 Bulma 스타일에 맞춘다.
+3. 둘 다 없으면 Bulma 클래스와 `--bulma-*` 변수로 Bulma 스타일에 맞게 직접 만든다.
+- 2·3단계로 `site.css`에 넣은 코드에는 어느 단계인지와 이유(예: "Bulma에 없고 Bootstrap의 ○○를 참고")를 주석으로 남긴다.
+
 ## 브랜치·PR
 - **main 히스토리는 선형으로 유지한다.** PR은 squash merge만 쓰고, 작업 브랜치에 main을 merge하지 않는다 (머지 커밋 금지).
 - GitHub 브랜치 보호 규칙은 쓰지 않는다. **main 보호는 이 문서의 규칙으로 대신한다:** Claude는 main에 직접 커밋·푸시하지 않고, PR을 만들어 사용자가 머지를 요청할 때만 squash merge한다 (`pr-merge`). force-push·브랜치 삭제는 사용자가 요청할 때만.
