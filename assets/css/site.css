@@ -22,6 +22,56 @@ body {
 
 .navbar.has-burger-menu .navbar-burger {
   display: flex;
+  margin-inline-start: 0;
+}
+
+/* 제목과 버거 사이의 아이콘 버튼: GitHub 저장소 링크, 다크/라이트 모드 전환 */
+.navbar-tools {
+  display: flex;
+  align-items: stretch;
+  margin-inline-start: auto;
+}
+
+.navbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  color: var(--bulma-text);
+}
+
+button.navbar-icon {
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.navbar-icon svg {
+  display: block;
+}
+
+/* 지금 테마의 반대(전환될 테마)를 아이콘으로 보여준다: 라이트에서는 달, 다크에서는 해 */
+.theme-icon-sun {
+  display: none !important;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  display: block !important;
+}
+
+[data-theme="dark"] .theme-icon-moon {
+  display: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block !important;
+  }
+
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none !important;
+  }
 }
 
 .navbar.has-burger-menu .navbar-menu {
